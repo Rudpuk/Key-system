@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор ключей</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .output {
+            font-size: 18px;
+            padding: 10px;
+            border: 1px solid #000;
+            display: inline-block;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <button class="button" onclick="generateKey()">Сгенерировать ключ</button>
+        <div class="output" id="keyOutput">Здесь будет ключ</div>
+        <button class="button" onclick="copyKey()">Скопировать ключ</button>
+    </div>
+
+    <script>
+        function generateKey() {
+            const chars = '123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            let key = '';
+            for (let i = 0; i < 16; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            document.getElementById('keyOutput').textContent = key;
+        }
+
+        function copyKey() {
+            const keyText = document.getElementById('keyOutput').textContent;
+            if (keyText !== "Здесь будет ключ") {
+                navigator.clipboard.writeText(keyText).then(function() {
+                    alert('Ключ скопирован в буфер обмена!');
+                }, function() {
+                    alert('Ошибка при копировании ключа.');
+                });
+            } else {
+                alert('Сначала сгенерируйте ключ.');
+            }
+        }
+    </script>
+
+</body>
+</html>
